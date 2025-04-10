@@ -8,18 +8,8 @@ from typing import Optional
 
 st.set_page_config(page_title="Secure Data Encryption System", page_icon="🔒", layout="centered")
 
-# Inject CSS
-st.markdown(
-    """
-    <style>
 
-    
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-
+## is main page modify kar raha ho
 st.markdown("""
     <style>
         /* Full background (includes area outside main content) */
