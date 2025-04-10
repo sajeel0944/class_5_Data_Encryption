@@ -8,6 +8,110 @@ from typing import Optional
 
 st.set_page_config(page_title="Secure Data Encryption System", page_icon="🔒", layout="centered")
 
+# Inject CSS
+st.markdown(
+    """
+    <style>
+
+    
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+st.markdown("""
+    <style>
+        /* Full background (includes area outside main content) */
+        html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
+            background-color:  rgb(0, 0, 0) !important;
+             color: white;
+        }
+
+        /* Main content area */
+        [data-testid="stAppViewContainer"] .main {
+            background-color: #1e1e1e !important;
+            color: white;
+        }
+
+        /* Sidebar background */
+        section[data-testid="stSidebar"] {
+            background-color: #111827 !important;
+            color: white;
+        }
+
+        /* Sidebar text and widgets */
+        section[data-testid="stSidebar"] * {
+            color: white;
+        }
+
+        /* Optional: header (if needed) */
+        header[data-testid="stHeader"] {
+            background-color: transparent;
+        }
+        
+        .stTextInput input {
+            color: blue;
+        }
+            
+        .stTextInput input {
+        color: black !important;
+    }
+
+    .stTextInput label {
+        color: white !important;
+    }
+
+    .stTextArea label {
+        color: white !important;
+    }
+
+     /* Tab text color */
+    .stTabs button {
+        color: white !important;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+
+     /* Button style */
+    .stButton button {
+        background-color: #4CAF50;  /* Green */
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out, background-color 0.3s;
+    }
+
+    /* Hover effects */
+    .stButton button:hover {
+        background-color: #45a049;
+        transform: scale(1.1);  /* Button size increases on hover */
+        color : white
+    }
+
+    /* Active button state */
+    .stButton button:active {
+        background-color: #388e3c;
+        transform: scale(1.05);  /* Slight shrink on click */
+    }
+
+    /* Focus effect */
+    .stButton button:focus {
+        outline: none;
+        box-shadow: 0 0 10px 2px rgba(0, 255, 0, 0.7);  /* Green glow when focused */
+    }
+            
+    </style>
+""", unsafe_allow_html=True)
+
 
 ## nichy Retrieve Data waly section main dia hai
 st.markdown("""
@@ -65,7 +169,7 @@ st.markdown("""
         }
         .info-text {
             font-size: 16px;
-            color: #555;
+            color: white;
         }
         .footer {
             margin-top: 40px;
@@ -236,7 +340,7 @@ if st.session_state.display:
         user_name = st.text_input("Enter Name")
         user_password = st.text_input("Enter Password", type="password")
 
-        if st.button("save"):
+        if st.button("Register"):
             
             if user_name == "" and user_password == "": ## agar user ky name or password nhi dia to ye chaly ga wana else
                 st.warning("Please enter your name and password")
@@ -337,7 +441,6 @@ else:
         user_text = st.text_area("Enter Data")
         user_password = st.text_input("Enter key")
 
-
         if st.button("Save Data"):
             if user_title == "" and user_text == "" and user_password == "": ## agar user ky title or text or password nhi dia to ye chaly ga wana else
                 st.warning("Please enter data")
@@ -368,7 +471,7 @@ else:
                 if "count" not in st.session_state: ## agar user ky 3 bar wrong key daly to wo logout hojaye is liye ye dia hai 
                     st.session_state.count = 3  ## is ki value 3 hai 
 
-                if st.session_state.count > 1:  ## agar st.session_state.count 1 ky bara bar ho jaye to ye false hojaye ga
+                if st.session_state.count > 0:  ## agar st.session_state.count 1 ky bara bar ho jaye to ye false hojaye ga
                     send : Manage_data = Manage_data() 
                     upload_data = send.find_data(user_key)  ## agar jo user ny jo key di hai us ka object aye to if cahly ga wana false
 
@@ -382,7 +485,7 @@ else:
 
                                 col1, col2 = st.columns(2)
                                 with col1:
-                                    st.markdown(f"<div class='label'>📝 Text:</div>", unsafe_allow_html=True)
+                                    st.markdown(f"<div class='label'>📝 Data:</div>", unsafe_allow_html=True)
                                     st.write(item["text"])
                                 with col2:
                                     st.markdown(f"<div class='label'>🔑 Password:</div>", unsafe_allow_html=True)
@@ -394,6 +497,7 @@ else:
                         st.warning(f"Attempt {st.session_state.count}: Data not found. Please check your key.")
                         
                 else:##  agar user ky 3 bar wrong key daly to wo logout hojaye is liye ye dia hai 
+                    st.session_state.count += 3 ## jab user 3 bar wrong key dy ga us ky daat st.session_state.count ky andar 0 value hoye to is ky zayeye  st.session_state.count ky andar 3 value dy rahy hai 
                     st.session_state.display = True  ## is ky true hony sy login or register wala dashboard show hoye ga main dashboard hidden ho jaye ga
                     st.rerun()  # Force re-render to display the "Successful logout" message
 
